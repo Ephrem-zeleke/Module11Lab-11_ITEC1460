@@ -1,6 +1,6 @@
-// creating a new database for personal finance tracking 
+-- creating a new database for personal finance tracking 
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -Q "CREATE DATABASE PersonalFinanceTracking"
-// creating table for my new database 
+-- creating table for my new database 
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -Q "USE PersonalFinanceTracking;
 CREATE TABLE Users (
     user_ID INT PRIMARY KEY,
@@ -71,6 +71,15 @@ CREATE TABLE Recurring_Transactions (
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
     FOREIGN KEY (category_ID) REFERENCES Categories(category_ID)
 );"
-// checking if the tables are created sucessfuly in the database 
+-- checking if the tables are created sucessfuly in the database 
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "SELECT name FROM sys.tables;"
+
+-- lets add sample data to the tables
+-- adding sample data to the user table 
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "
+INSERT INTO Users (user_ID, full_name, email, password_hash, currency)
+VALUES 
+(1, 'Alice Johnson', 'alice@example.com', 'hashed_pw_1', 'USD'),
+(2, 'Bob Smith', 'bob@example.com', 'hashed_pw_2', 'EUR');"
+--
 
