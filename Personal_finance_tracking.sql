@@ -72,7 +72,7 @@ CREATE TABLE Recurring_Transactions (
     FOREIGN KEY (category_ID) REFERENCES Categories(category_ID)
 );"
 -- checking if the tables are created sucessfuly in the database 
-/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "SELECT name FROM sys.tables;"
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d Per/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q sonalFinanceTracking -Q "SELECT name FROM sys.tables;"
 
 -- lets add sample data to the tables
 -- adding sample data to the user table 
@@ -81,5 +81,50 @@ INSERT INTO Users (user_ID, full_name, email, password_hash, currency)
 VALUES 
 (1, 'Alice Johnson', 'alice@example.com', 'hashed_pw_1', 'USD'),
 (2, 'Bob Smith', 'bob@example.com', 'hashed_pw_2', 'EUR');"
---
+-- adding sample data for the categories table 
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "
+INSERT INTO Categories (category_ID, category_name, category_type)
+VALUES 
+(1, 'Groceries', 'Expense'),
+(2, 'Salary', 'Income'),
+(3, 'Utilities', 'Expense');"
+-- adding sample data for accounts table 
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "
+INSERT INTO Accounts (account_ID, user_ID, account_name, account_type, balance)
+VALUES 
+(1, 1, 'Checking Account', 'Bank', 1200.00),
+(2, 1, 'Savings Account', 'Bank', 3500.00),
+(3, 2, 'Cash Wallet', 'Cash', 150.00);"
+-- adding sample data for transactions table 
+"
+INSERT INTO Transactions (transaction_ID, account_ID, category_ID, transaction_type, amount, description, transaction_date)
+VALUES 
+(1, 1, 1, 'Expense', 100.00, 'Weekly groceries', '2025-05-01'),
+(2, 1, 2, 'Income', 3000.00, 'Monthly salary', '2025-05-01'),
+(3, 3, 3, 'Expense', 60.00, 'Electric bill', '2025-05-03');"
+-- adding sample data for budget table 
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "
+INSERT INTO Budgets (budget_ID, user_ID, category_ID, month, budget_amount)
+VALUES 
+(1, 1, 1, '2025-05', 500.00),
+(2, 2, 3, '2025-05', 200.00);"
+-- adding sample data for goals table 
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "
+INSERT INTO Goals (goal_ID, user_ID, goal_name, target_amount, target_date, current_amount)
+VALUES 
+(1, 1, 'Vacation Fund', 2000.00, '2025-12-31', 500.00),
+(2, 2, 'Emergency Fund', 5000.00, '2026-06-30', 1000.00);"
+-- adding sample data for savings table 
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "
+INSERT INTO Savings (saving_ID, goal_ID, account_ID, amount, saving_date)
+VALUES 
+(1, 1, 2, 250.00, '2025-05-02'),
+(2, 2, 3, 100.00, '2025-05-04');"
+-- adding sample data for Recurring transaction 
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "
+INSERT INTO Recurring_Transactions (recurring_ID, user_ID, category_ID, amount, frequency, start_date, end_date)
+VALUES 
+(1, 1, 3, 60.00, 'Monthly', '2025-01-01', '2025-12-01'),
+(2, 2, 1, 80.00, 'Weekly', '2025-01-01', '2025-12-31');"
+
 
