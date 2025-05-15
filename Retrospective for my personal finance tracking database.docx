@@ -1,0 +1,29 @@
+Retrospective for my personal finance tracking database
+1. How did your database design evolve during the project?
+At the start, I had a basic idea of the core entities such as Users, Transactions, Accounts, and Budgets. 
+As I progressed, I realized the need to include more detailed structures like Recurring_Transactions, Goals, and 
+Savings to capture broader aspects of personal finance. This led me to normalize the database further, ensuring 
+relationships were well-defined through foreign keys and minimizing redundancy.
+
+2. What challenges did you encounter during the project?
+•	SQL syntax errors, especially with stored procedures and views.
+•	Confusion over how to execute SQL scripts from the terminal correctly using sqlcmd.
+•	Ensuring the correct execution context (database selected) before creating tables or procedures.
+•	Foreign key dependency issues when creating tables out of order.
+
+3. How did you resolve technical problems?
+•	I reviewed and corrected SQL syntax step by step, often using small tests to isolate errors.
+•	I consulted SQL Server documentation and used helpful CLI options like -d to explicitly set the database context.
+•	I broke down complex procedures and ran simpler versions first to debug.
+•	I renamed and reordered table creation to ensure that foreign key references existed.
+
+4. What were the high points of the project?
+•	Successfully creating and testing the UpsertBudget stored procedure.
+•	Seeing the final data views that summarized key financial metrics — it showed how the pieces connected.
+•	Gaining confidence in managing SQL Server from the command line.
+•	Developing a reusable structure that could be extended for features like reporting or budgeting insights.
+
+5. What would you do differently next time?
+•	Plan entity relationships and constraints more thoroughly before writing SQL code.
+•	Use a script to drop and re-create the database cleanly during development.
+•	Automate table creation and data seeding through version-controlled SQL files.

@@ -127,4 +127,37 @@ VALUES
 (1, 1, 3, 60.00, 'Monthly', '2025-01-01', '2025-12-01'),
 (2, 2, 1, 80.00, 'Weekly', '2025-01-01', '2025-12-31');"
 
+-- updating the budget table for autoincreament of the budget ID to work well with the store procedure to add new data
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q "
+DROP TABLE IF EXISTS Budgets;
+
+CREATE TABLE Budgets (
+    budget_ID INT IDENTITY(1,1) PRIMARY KEY,
+    user_ID INT,
+    category_ID INT,
+    month VARCHAR(7),
+    budget_amount DECIMAL(12,2),
+    FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
+    FOREIGN KEY (category_ID) REFERENCES Categories(category_ID)
+);"
+
+--UpsertBudget – Insert or Update Budget
+--Inserts a new budget if it doesn't exist for a user/category/month — otherwise updates the existing one.
+--test the upsert procedure 
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q 
+"EXEC UpsertBudget 1, 2, '2025-05', 500.00"
+
+-- test the retriving store procedure 
+-- GetUserMonthlySummary Procedure 
+--t effectively retrieves a summary of the user’s budget vs. spending per category for a given month, 
+--which is a common and useful financial reporting feature.
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q 
+"EXEC GetUserMonthlySummary @user_ID=1, @month='2025-05';"
+
+-- testing the delete procedure 
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -d PersonalFinanceTracking -Q 
+"EXEC DeleteUserBudget @user_ID=1, @category_ID=1, @month='2025-05';"
+
+
+
 
