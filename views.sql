@@ -1,3 +1,4 @@
+-- two views
 --Summarize important business metrics such as total income, total expenses, and net savings for each user by month.
 USE PersonalFinanceTracking;
 GO

@@ -1,3 +1,4 @@
+-- creating the database and populating sample data
 -- creating a new database for personal finance tracking 
 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'YourStrongP@ssw0rd' -Q "CREATE DATABASE PersonalFinanceTracking"
 -- creating table for my new database 
